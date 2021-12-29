@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feng.dao.UserActivityMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.feng.entity.UserActivity">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="activityId" property="activityId" />
+        <result column="activityName" property="activityName" />
+        <result column="holdTime" property="holdTime" />
+        <result column="site" property="site" />
+        <result column="introduce" property="introduce" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account, activityId, activityName,holdTime,site,introduce
+    </sql>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.feng.entity.UserActivity">
+        INSERT INTO user_activity (
+
+            account,
+             activityId,
+             activityName,
+             holdTime,
+             site,
+             introduce
+        )
+        VALUES
+            (#{account},#{activityId},#{activityName}, #{holdTime}, #{site}, #{introduce})
+    </insert>
+
+    <resultMap id="ListMap2" type="com.feng.entity.UserActivity">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="activity_name" property="activityName"/>
+        <result column="hold_time" property="holdTime"/>
+        <result column="site" property="site"/>
+        <result column="introduce" property="introduce"/>
+    </resultMap>
+
+    <select id="findActivity" resultMap="ListMap2" parameterType="String" >
+
+SELECT * FROM user_activity WHERE account= #{search}
+
+    </select>
+
+</mapper>
